@@ -1,13 +1,13 @@
-import { Version } from '@microsoft/sp-core-library';
+import {Version} from '@microsoft/sp-core-library';
 import {
   BaseClientSideWebPart,
   IPropertyPaneConfiguration,
   PropertyPaneTextField
 } from '@microsoft/sp-webpart-base';
-import { escape } from '@microsoft/sp-lodash-subset';
 
-import styles from './MaterialDesignWebPart.module.scss';
 import * as strings from 'MaterialDesignWebPartStrings';
+import * as styles from 'materialize-css';
+import {SPComponentLoader} from '@microsoft/sp-loader';
 
 export interface IMaterialDesignWebPartProps {
   description: string;
@@ -16,21 +16,27 @@ export interface IMaterialDesignWebPartProps {
 export default class MaterialDesignWebPart extends BaseClientSideWebPart<IMaterialDesignWebPartProps> {
 
   public render(): void {
+
+    SPComponentLoader.loadCss('../../../node_modules/materialize-css/dist/css/materialize.min.css');
+    SPComponentLoader.loadCss('../../../node_modules/@fortawesome/fontawesome-free/css/all.min.css');
+    SPComponentLoader.loadScript('../../../node_modules/materialize-css/dist/js/materialize.min.js');
+
     this.domElement.innerHTML = `
-      <div class="${ styles.materialDesign }">
-        <div class="${ styles.container }">
-          <div class="${ styles.row }">
-            <div class="${ styles.column }">
-              <span class="${ styles.title }">Welcome to SharePoint!</span>
-              <p class="${ styles.subTitle }">Customize SharePoint experiences using Web Parts.</p>
-              <p class="${ styles.description }">${escape(this.properties.description)}</p>
-              <a href="https://aka.ms/spfx" class="${ styles.button }">
-                <span class="${ styles.label }">Learn more</span>
-              </a>
-            </div>
-          </div>
+       <div class="row">
+      <div class="row">
+        <div class="input-field col s6">
+          <i class="fas fa-user prefix"></i>
+          <input id="icon_prefix" type="text" class="validate">
+          <label for="icon_prefix">First Name</label>
         </div>
-      </div>`;
+        <div class="input-field col s6">
+          <i class="fas fa-mobile prefix"></i>
+          <input id="icon_telephone" type="tel" class="validate">
+          <label for="icon_telephone">Mobile No.</label>
+        </div>
+      </div>
+  </div>
+        `;
   }
 
   protected get dataVersion(): Version {
