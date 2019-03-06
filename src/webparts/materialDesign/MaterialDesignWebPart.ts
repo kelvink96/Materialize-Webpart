@@ -19,7 +19,7 @@ export interface IMaterialDesignWebPartProps {
 export default class MaterialDesignWebPart extends BaseClientSideWebPart<IMaterialDesignWebPartProps> {
 
   // Load Resources
-  public constructor(){
+  public constructor() {
     super();
 
     SPComponentLoader.loadCss('../../../node_modules/materialize-css/dist/css/materialize.min.css');
